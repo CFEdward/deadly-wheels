@@ -5,8 +5,8 @@
 
 UDeadlyWheelsSportsWheelFront::UDeadlyWheelsSportsWheelFront()
 {
-	WheelRadius = 39.0f;
-	WheelWidth = 35.0f;
+	WheelRadius = 30.0f;
+	WheelWidth = 19.0f;
 	FrictionForceMultiplier = 3.0f;
 
 	MaxBrakeTorque = 4500.0f;
