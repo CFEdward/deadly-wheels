@@ -4,6 +4,9 @@
 # Rider
 .idea/
 
+#VSCode
+.vscode/
+
 # Compiled Object files
 *.slo
 *.lo
