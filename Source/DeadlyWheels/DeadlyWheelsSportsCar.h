@@ -6,6 +6,7 @@
 #include "DeadlyWheelsPawn.h"
 #include "DeadlyWheelsSportsCar.generated.h"
 
+class UShooter;
 /**
  *  Sports car wheeled vehicle implementation
  */
@@ -17,4 +18,26 @@ class DEADLYWHEELS_API ADeadlyWheelsSportsCar : public ADeadlyWheelsPawn
 public:
 
 	ADeadlyWheelsSportsCar();
+
+	virtual void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) override;
+
+protected:
+
+	void FireButtonPressed();
+
+private:
+
+	UPROPERTY(VisibleAnywhere)
+	TObjectPtr<UStaticMeshComponent> TurretMesh;
+	
+	UPROPERTY(VisibleAnywhere)
+	TObjectPtr<USceneComponent> FirePoint;
+
+	UPROPERTY(VisibleAnywhere)
+	TObjectPtr<UShooter> ShooterComponent;
+
+public:
+
+	FORCEINLINE USceneComponent* GetFirePoint() const { return FirePoint; }
+	
 };
