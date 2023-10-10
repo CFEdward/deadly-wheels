@@ -5,6 +5,7 @@
 #include "DeadlyWheelsSportsWheelFront.h"
 #include "DeadlyWheelsSportsWheelRear.h"
 #include "ChaosWheeledVehicleMovementComponent.h"
+#include "Shooter.h"
 
 ADeadlyWheelsSportsCar::ADeadlyWheelsSportsCar()
 {
@@ -66,4 +67,28 @@ ADeadlyWheelsSportsCar::ADeadlyWheelsSportsCar()
 	// NOTE: Check the Blueprint asset for the Steering Curve
 	GetChaosVehicleMovement()->SteeringSetup.SteeringType = ESteeringType::Ackermann;
 	GetChaosVehicleMovement()->SteeringSetup.AngleRatio = 0.7f;
+
+	TurretMesh = CreateDefaultSubobject<UStaticMeshComponent>("Turret");
+	TurretMesh->SetupAttachment(GetMesh());
+	
+	FirePoint = CreateDefaultSubobject<USceneComponent>("FirePoint");
+	FirePoint->SetupAttachment(TurretMesh);
+
+	ShooterComponent = CreateDefaultSubobject<UShooter>("ShooterComponent");
+	
+}
+
+void ADeadlyWheelsSportsCar::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
+{
+	Super::SetupPlayerInputComponent(PlayerInputComponent);
+
+	PlayerInputComponent->BindAction("Fire", IE_Pressed, this, &ADeadlyWheelsSportsCar::FireButtonPressed);
+}
+
+void ADeadlyWheelsSportsCar::FireButtonPressed()
+{
+	if (ShooterComponent)
+	{
+		ShooterComponent->Shoot();
+	}
 }

@@ -7,6 +7,8 @@
 #include "Shooter.generated.h"
 
 
+class ATurretProjectile;
+
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class DEADLYWHEELS_API UShooter : public UActorComponent
 {
@@ -21,15 +23,19 @@ protected:
 	virtual void BeginPlay() override;
 
 public:	
-
-	UPROPERTY(EditAnywhere)
-	TSubclassOf<AActor> projectile;
-
-	UPROPERTY(EditAnywhere)
-	TSubclassOf<AActor> spawnPositionActor;
+	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 	UFUNCTION()
 	void Shoot();
+
+private:
+
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<AActor> ProjectileToSpawn;
+
+	//UPROPERTY(EditAnywhere)
+	//TSubclassOf<AActor> spawnPositionActor;
+	
 };
