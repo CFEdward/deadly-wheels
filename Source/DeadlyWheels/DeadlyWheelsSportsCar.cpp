@@ -6,6 +6,7 @@
 #include "DeadlyWheelsSportsWheelRear.h"
 #include "ChaosWheeledVehicleMovementComponent.h"
 #include "Shooter.h"
+#include "GameFramework/SpringArmComponent.h"
 
 ADeadlyWheelsSportsCar::ADeadlyWheelsSportsCar()
 {
@@ -83,6 +84,15 @@ void ADeadlyWheelsSportsCar::SetupPlayerInputComponent(UInputComponent* PlayerIn
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
 	PlayerInputComponent->BindAction("Fire", IE_Pressed, this, &ADeadlyWheelsSportsCar::FireButtonPressed);
+}
+
+void ADeadlyWheelsSportsCar::LookAround(const FInputActionValue& Value)
+{
+	Super::LookAround(Value);
+
+	//UE_LOG(LogTemp, Warning, TEXT("Controller Pitch: %f, Yaw: %f, Roll: %f"), GetControlRotation().Pitch, GetControlRotation().Yaw, GetControlRotation().Roll);
+	//TurretMesh->AddLocalRotation(FRotator(LookValue, 0.f, 0.f));
+	TurretMesh->SetRelativeRotation(FRotator(GetControlRotation().Pitch , GetControlRotation().Yaw, 0.f));
 }
 
 void ADeadlyWheelsSportsCar::FireButtonPressed()

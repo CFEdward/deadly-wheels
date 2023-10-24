@@ -34,10 +34,6 @@ class ADeadlyWheelsPawn : public AWheeledVehiclePawn
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	UCameraComponent* FrontCamera;
 
-	/** Spring Arm for the back camera */
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
-	USpringArmComponent* BackSpringArm;
-
 	/** Back Camera component */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	UCameraComponent* BackCamera;
@@ -46,6 +42,10 @@ class ADeadlyWheelsPawn : public AWheeledVehiclePawn
 	TObjectPtr<UChaosWheeledVehicleMovementComponent> ChaosVehicleMovement;
 
 protected:
+	
+	/** Spring Arm for the back camera */
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
+	USpringArmComponent* BackSpringArm;
 
 	/** Steering Action */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input)
@@ -113,7 +113,7 @@ protected:
 	void StopHandbrake(const FInputActionValue& Value);
 
 	/** Handles look around input */
-	void LookAround(const FInputActionValue& Value);
+	virtual void LookAround(const FInputActionValue& Value);
 
 	/** Handles toggle camera input */
 	void ToggleCamera(const FInputActionValue& Value);
@@ -124,6 +124,8 @@ protected:
 	/** Called when the brake lights are turned on or off */
 	UFUNCTION(BlueprintImplementableEvent, Category="Vehicle")
 	void BrakeLights(bool bBraking);
+
+	FVector2D LookValue;
 
 public:
 	/** Returns the front spring arm subobject */

@@ -21,6 +21,8 @@ public:
 
 	virtual void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) override;
 
+	virtual void LookAround(const FInputActionValue& Value) override;
+
 protected:
 
 	void FireButtonPressed();

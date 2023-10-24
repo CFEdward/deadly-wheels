@@ -1,8 +1,6 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 
 #include "DeadlyWheelsPawn.h"
-#include "DeadlyWheelsWheelFront.h"
-#include "DeadlyWheelsWheelRear.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
@@ -170,10 +168,13 @@ void ADeadlyWheelsPawn::StopHandbrake(const FInputActionValue& Value)
 void ADeadlyWheelsPawn::LookAround(const FInputActionValue& Value)
 {
 	// get the flat angle value for the input 
-	float LookValue = Value.Get<float>();
+	LookValue = Value.Get<FVector2D>();
 
 	// add the input
-	BackSpringArm->AddLocalRotation(FRotator(0.0f, LookValue, 0.0f));
+	//BackSpringArm->AddRelativeRotation(FRotator(0.0f, LookValue, 0.0f));
+	if(GetController()) AddControllerYawInput(LookValue.X);
+	if(GetController()) AddControllerPitchInput(LookValue.Y);
+
 }
 
 void ADeadlyWheelsPawn::ToggleCamera(const FInputActionValue& Value)
